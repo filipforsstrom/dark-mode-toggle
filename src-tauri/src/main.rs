@@ -51,5 +51,5 @@ fn toggle_dark_mode() {
         .arg("-c")
         .arg("./osascript.sh")
         .output()
-        .expect("failed to execute process");
+        .expect("failed to execute osascript");
 }
