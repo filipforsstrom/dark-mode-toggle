@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "dark-mode-toggle",
-    "version": "0.0.0"
+    "version": "1.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -27,7 +27,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.filip.dev",
+      "identifier": "com.example.dev",
       "targets": "all"
     },
     "security": {

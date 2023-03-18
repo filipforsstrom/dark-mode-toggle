@@ -49,7 +49,7 @@ fn main() {
 fn toggle_dark_mode() {
     Command::new("sh")
         .arg("-c")
-        .arg("./osascript.sh")
+        .arg("/Users/panopticon/dev/rust/dark-mode-toggle/src-tauri/scripts/osascript.sh")
         .output()
         .expect("failed to execute osascript");
 }
