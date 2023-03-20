@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "dark-mode-toggle",
+    "productName": "Dark Mode Toggle",
     "version": "1.0.0"
   },
   "tauri": {
