@@ -1,18 +1,26 @@
 use std::process::Command;
 use tauri_plugin_autostart::MacosLauncher;
 
-use tauri::Manager;
-use tauri::{SystemTray, SystemTrayEvent, SystemTrayMenu};
+use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu};
 
 fn main() {
-    let tray_menu = SystemTrayMenu::new(); // insert the menu items here
+    // here `"quit".to_string()` defines the menu item id,
+    // and the second parameter is the menu item label.
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+
+    let tray_menu = SystemTrayMenu::new().add_item(quit);
+
+    let tray = SystemTray::new()
+        .with_menu_on_left_click(false)
+        .with_menu(tray_menu);
+
     tauri::Builder::default()
         .setup(|app| {
             app.set_activation_policy(tauri::ActivationPolicy::Accessory);
             Ok(())
         })
-        .system_tray(SystemTray::new().with_menu(tray_menu))
-        .on_system_tray_event(|app, event| match event {
+        .system_tray(tray)
+        .on_system_tray_event(|_app, event| match event {
             SystemTrayEvent::LeftClick {
                 position: _,
                 size: _,
@@ -38,10 +46,6 @@ fn main() {
             SystemTrayEvent::MenuItemClick { id, .. } => match id.as_str() {
                 "quit" => {
                     std::process::exit(0);
-                }
-                "hide" => {
-                    let window = app.get_window("main").unwrap();
-                    window.hide().unwrap();
                 }
                 _ => {}
             },
