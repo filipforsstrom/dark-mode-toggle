@@ -7,6 +7,10 @@ use tauri::{SystemTray, SystemTrayEvent, SystemTrayMenu};
 fn main() {
     let tray_menu = SystemTrayMenu::new(); // insert the menu items here
     tauri::Builder::default()
+        .setup(|app| {
+            app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+            Ok(())
+        })
         .system_tray(SystemTray::new().with_menu(tray_menu))
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::LeftClick {
