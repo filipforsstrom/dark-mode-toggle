@@ -1,7 +1,8 @@
 use std::process::Command;
+use tauri_plugin_autostart::MacosLauncher;
 
 use tauri::Manager;
-use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu};
+use tauri::{SystemTray, SystemTrayEvent, SystemTrayMenu};
 
 fn main() {
     let tray_menu = SystemTrayMenu::new(); // insert the menu items here
@@ -42,8 +43,18 @@ fn main() {
             },
             _ => {}
         })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .plugin(tauri_plugin_autostart::init(
+            MacosLauncher::LaunchAgent,
+            Some(vec!["--flag1", "--flag2"]), /* arbitrary number of args to pass to your app */
+        ))
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|_app_handle, event| match event {
+            tauri::RunEvent::ExitRequested { api, .. } => {
+                api.prevent_exit();
+            }
+            _ => {}
+        });
 }
 
 fn toggle_dark_mode() {

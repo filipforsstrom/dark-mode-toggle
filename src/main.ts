@@ -1,21 +1,18 @@
-import { invoke } from "@tauri-apps/api/tauri";
+import { enable, isEnabled } from "tauri-plugin-autostart-api";
 
-let greetInputEl: HTMLInputElement | null;
-let greetMsgEl: HTMLElement | null;
+enable().then(() => {});
 
-async function greet() {
-  if (greetMsgEl && greetInputEl) {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    greetMsgEl.textContent = await invoke("greet", {
-      name: greetInputEl.value,
-    });
-  }
-}
+// 1. Select the div element using the id property
+const app = document.getElementById("app");
+// 2. Create a new <p></p> element programmatically
+const autostartIsEnabled = document.createElement("p");
+// 3. Add the text content
 
-window.addEventListener("DOMContentLoaded", () => {
-  greetInputEl = document.querySelector("#greet-input");
-  greetMsgEl = document.querySelector("#greet-msg");
-  document
-    .querySelector("#greet-button")
-    ?.addEventListener("click", () => greet());
+autostartIsEnabled.textContent = "Hello, World!";
+
+isEnabled().then((enabled) => {
+  console.log(enabled);
 });
+
+// 4. Append the p element to the div element
+app?.appendChild(autostartIsEnabled);
