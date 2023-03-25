@@ -1,14 +1,19 @@
 use std::process::Command;
 use tauri_plugin_autostart::MacosLauncher;
 
-use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu};
+use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem};
 
 fn main() {
     // here `"quit".to_string()` defines the menu item id,
     // and the second parameter is the menu item label.
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let auto_start_enabled =
+        CustomMenuItem::new("auto_start_enabled".to_string(), "Auto Start Enabled");
 
-    let tray_menu = SystemTrayMenu::new().add_item(quit);
+    let tray_menu = SystemTrayMenu::new()
+        // .add_item(auto_start_enabled)
+        // .add_native_item(SystemTrayMenuItem::Separator)
+        .add_item(quit);
 
     let tray = SystemTray::new()
         .with_menu_on_left_click(false)
