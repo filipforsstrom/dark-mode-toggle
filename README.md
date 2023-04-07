@@ -1,7 +1,11 @@
-# Tauri + Vanilla TS
+# Dark Mode Toggle
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Typescript.
+Toggle the appearance in MacOS between Light and Dark mode with a click on the icon in the system tray.
 
-## Recommended IDE Setup
+## Installation
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+Download and install the latest [release](https://github.com/filipforsstrom/dark-mode-toggle/releases) or clone this repository and run ```cargo tauri build``` (you need [rust](https://www.rust-lang.org/tools/install) to be installed to run ```cargo```).
+
+## Auto start
+
+The application will automatically start on system boot. Deleting the application will remove this behaviour.
