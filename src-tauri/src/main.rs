@@ -56,8 +56,9 @@ fn main() {
 }
 
 fn toggle_dark_mode() {
-    Command::new("sh")
-        .arg("/Users/panopticon/dev/rust/dark-mode-toggle/src-tauri/scripts/osascript.sh")
+    Command::new("osascript")
+        .arg("-e")
+        .arg("tell app \"System Events\" to tell appearance preferences to set dark mode to not dark mode")
         .output()
-        .expect("failed to execute osascript");
+        .expect("failed to execute process");
 }
